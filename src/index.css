@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #f5f5f5;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb { background: #444; border-radius: 2px; }
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #e8341c, #f07428);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Heat gradient */
+.heat-gradient {
+  background: linear-gradient(135deg, #e8341c 0%, #f07428 100%);
+}
+
+/* Score ring animation */
+@keyframes scoreReveal {
+  from { stroke-dashoffset: 251; }
+  to { stroke-dashoffset: var(--target-offset, 63); }
+}
+.score-ring {
+  animation: scoreReveal 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+}
+
+/* Fade up */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.45s ease-out forwards; }
+
+/* Stagger children */
+.stagger > * {
+  opacity: 0;
+  animation: fadeUp 0.4s ease-out forwards;
+}
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger > *:nth-child(6) { animation-delay: 0.3s; }
+.stagger > *:nth-child(7) { animation-delay: 0.35s; }
+.stagger > *:nth-child(8) { animation-delay: 0.4s; }
+.stagger > *:nth-child(9) { animation-delay: 0.45s; }
+
+/* Loading bar */
+@keyframes loadingBar {
+  0% { width: 0%; }
+  20% { width: 28%; }
+  45% { width: 55%; }
+  70% { width: 78%; }
+  88% { width: 91%; }
+  100% { width: 100%; }
+}
+.loading-bar { animation: loadingBar 3.8s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+/* Loading dot pulse */
+@keyframes dotPulse {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+.dot-1 { animation: dotPulse 1.4s ease-in-out infinite; }
+.dot-2 { animation: dotPulse 1.4s ease-in-out 0.2s infinite; }
+.dot-3 { animation: dotPulse 1.4s ease-in-out 0.4s infinite; }
+
+/* Orbit rings */
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes spinR { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+.orbit-1 { animation: spin 4s linear infinite; }
+.orbit-2 { animation: spinR 6s linear infinite; }
+.orbit-3 { animation: spin 9s linear infinite; }
+
+/* Shimmer loading state */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+}
+
+/* Number count up */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.count-reveal { animation: countUp 0.6s ease-out 0.8s forwards; opacity: 0; }
+
+/* Tap */
+.tap-feedback { transition: transform 0.1s ease; }
+.tap-feedback:active { transform: scale(0.97); }
+
+/* Badge pulse */
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 52, 28, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(232, 52, 28, 0); }
+}
+.badge-pulse { animation: badgePulse 2s ease-in-out infinite; }
+
+/* Glow */
+.heat-glow { box-shadow: 0 0 40px rgba(232, 52, 28, 0.2), 0 0 80px rgba(240, 116, 40, 0.1); }
+.subtle-glow { box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6); }
+
+/* Border gradient */
+.border-heat {
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
