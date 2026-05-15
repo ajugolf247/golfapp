@@ -14,6 +14,7 @@ import EquipmentScreen from './screens/EquipmentScreen';
 import TrainVsChangeScreen from './screens/TrainVsChangeScreen';
 import NextStepScreen from './screens/NextStepScreen';
 import SavedReportsScreen from './screens/SavedReportsScreen';
+import DebtPayoffScreen from './screens/DebtPayoffScreen';
 
 const SCREENS = [
   'entry',
@@ -29,12 +30,13 @@ const SCREENS = [
   'train-vs-change',
   'next-step',
   'saved-reports',
+  'debt-payoff',
 ];
 
 const SCREEN_LABELS = [
   'Entry', 'Profile', 'Bag', 'SwingScan', 'Scorecard',
   'Inputs', 'Analysis', 'Results', 'Why', 'Equipment',
-  'Train vs Change', 'Next Steps', 'Reports',
+  'Train vs Change', 'Next Steps', 'Reports', 'Debt Payoff',
 ];
 
 function TransitionWrapper({ children, screenKey }) {
@@ -91,6 +93,7 @@ export default function App() {
       case 'train-vs-change': return <TrainVsChangeScreen onNext={() => goTo('next-step')} onBack={goBack} />;
       case 'next-step':       return <NextStepScreen onNext={() => goTo('saved-reports')} onBack={goBack} />;
       case 'saved-reports':   return <SavedReportsScreen onRestart={restart} onBack={goBack} />;
+      case 'debt-payoff':     return <DebtPayoffScreen onBack={goBack} />;
       default:                return <EntryScreen onNext={goNext} />;
     }
   };
