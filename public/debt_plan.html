@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaron Ungvarsky — Debt Recovery &amp; Budget Plan</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --bg4: #222222;
+    --border: #2a2a2a;
+    --border2: #333333;
+    --text: #e8e8e8;
+    --text-muted: #888888;
+    --text-dim: #555555;
+    --orange: #f07428;
+    --red: #e8341c;
+    --grad: linear-gradient(135deg, #e8341c, #f07428);
+    --green: #22c55e;
+    --green-bg: rgba(34, 197, 94, 0.08);
+    --green-border: rgba(34, 197, 94, 0.25);
+    --red-bg: rgba(232, 52, 28, 0.08);
+    --red-border: rgba(232, 52, 28, 0.3);
+    --orange-bg: rgba(240, 116, 40, 0.08);
+    --orange-border: rgba(240, 116, 40, 0.25);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* HEADER */
+  .doc-header {
+    border-bottom: 1px solid var(--border2);
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+  .doc-header .label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .doc-header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+  }
+  .doc-header .subtitle {
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  /* SECTION TITLES */
+  .section {
+    margin-bottom: 56px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* DASHBOARD */
+  .dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+  .stat-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .stat-card .stat-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .stat-card .stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+  }
+  .stat-card .stat-value.green {
+    background: none;
+    -webkit-text-fill-color: var(--green);
+  }
+  .stat-card .stat-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* TABLES */
+  .tbl-wrap {
+    overflow-x: auto;
+    margin-bottom: 16px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  thead th {
+    background: var(--bg3);
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    border: 1px solid var(--border);
+  }
+  tbody td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  tbody tr:hover td { background: rgba(255,255,255,0.04); }
+  .tbl-total td {
+    background: var(--bg3) !important;
+    font-weight: 700;
+    color: var(--orange);
+    border-top: 2px solid var(--border2);
+  }
+
+  .num { font-variant-numeric: tabular-nums; }
+  .text-right { text-align: right; }
+  .text-center { text-align: center; }
+  .accent { color: var(--orange); font-weight: 700; }
+  .red-text { color: var(--red); font-weight: 700; }
+  .green-text { color: var(--green); font-weight: 700; }
+  .muted { color: var(--text-muted); }
+  .strike { text-decoration: line-through; color: var(--text-dim); }
+  .bold { font-weight: 700; }
+
+  /* CALLOUT CARDS */
+  .callout {
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-left: 3px solid;
+  }
+  .callout.danger {
+    background: var(--red-bg);
+    border-color: var(--red);
+  }
+  .callout.action {
+    background: var(--green-bg);
+    border-color: var(--green);
+  }
+  .callout.warn {
+    background: var(--orange-bg);
+    border-color: var(--orange);
+  }
+  .callout .callout-tag {
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .callout.danger .callout-tag { color: var(--red); }
+  .callout.action .callout-tag { color: var(--green); }
+  .callout.warn .callout-tag { color: var(--orange); }
+  .callout h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--text);
+  }
+  .callout p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+  .callout .callout-amount {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .callout.danger .callout-amount { color: var(--red); }
+  .callout.action .callout-amount { color: var(--green); }
+  .callout.warn .callout-amount { color: var(--orange); }
+
+  /* SURPRISES GRID */
+  .surprises-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* ACTION PLAN */
+  .phase {
+    margin-bottom: 32px;
+  }
+  .phase-title {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 14px;
+    padding: 8px 14px;
+    background: var(--orange-bg);
+    border: 1px solid var(--orange-border);
+    border-radius: 4px;
+    display: inline-block;
+  }
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .checklist li .chk {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border2);
+    border-radius: 3px;
+    margin-top: 1px;
+    background: var(--bg2);
+  }
+  .checklist li.urgent .chk { border-color: var(--red); }
+  .checklist li.positive .chk { border-color: var(--green); }
+  .checklist li .chk-label { flex: 1; }
+  .checklist li .badge {
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+  .badge.red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+  .badge.green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .badge.orange { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange-border); }
+
+  /* INCOME SECTION */
+  .income-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .info-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 18px;
+  }
+  .info-card .card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .info-card .card-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--green);
+    margin-bottom: 3px;
+  }
+  .info-card .card-detail {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* AFTER PAYOFF */
+  .future-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .future-card {
+    background: var(--bg3);
+    border: 1px solid var(--green-border);
+    border-radius: 7px;
+    padding: 16px;
+    text-align: center;
+  }
+  .future-card .fc-amount {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .future-card .fc-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* HIGHLIGHT ROW */
+  .tbl-highlight td {
+    background: rgba(240, 116, 40, 0.07) !important;
+    font-weight: 700;
+    color: var(--orange);
+  }
+
+  /* FOOTER */
+  .doc-footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-dim);
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: white; color: black; }
+    .page { padding: 20px; }
+    .stat-card, .info-card, .future-card, .callout, .checklist li { break-inside: avoid; }
+    .section { break-inside: avoid; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 560px) {
+    .dashboard { grid-template-columns: 1fr; }
+    .income-grid { grid-template-columns: 1fr; }
+    .surprises-grid { grid-template-columns: 1fr; }
+    .future-grid { grid-template-columns: 1fr; }
+    .stat-card .stat-value { font-size: 22px; }
+    .doc-header h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="label">Confidential — Personal Finance Document</div>
+    <h1>Aaron Ungvarsky — Debt Recovery &amp; Budget Plan</h1>
+    <div class="subtitle">Based on 12 months of bank + credit card statements &nbsp;·&nbsp; As of May 14, 2026</div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard">
+    <div class="stat-card">
+      <div class="stat-label">Total CC Debt</div>
+      <div class="stat-value">$37,464</div>
+      <div class="stat-sub">After rewards applied: ~$36,561</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Monthly Interest (CC)</div>
+      <div class="stat-value">~$713</div>
+      <div class="stat-sub">22% blended APR across 3 cards</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Available for Debt Attack</div>
+      <div class="stat-value green">$5,949</div>
+      <div class="stat-sub">Under payoff budget (was $3,444)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Debt-Free Target</div>
+      <div class="stat-value">Jan 2027</div>
+      <div class="stat-sub">~7–7.5 months at $5,000–5,500/mo</div>
+    </div>
+  </div>
+
+  <!-- INCOME -->
+  <div class="section">
+    <div class="section-title">Income</div>
+    <div class="income-grid">
+      <div class="info-card">
+        <div class="card-label">Current Employer</div>
+        <div class="card-value">$10,854/mo</div>
+        <div class="card-detail">Blackfish Media · $5,426–5,479 bimonthly (Oct 2025 onwards)</div>
+      </div>
+      <div class="info-card">
+        <div class="card-label">Prior Employer (Jan–Sep 2025)</div>
+        <div class="card-value">$7,000–10,000/mo</div>
+        <div class="card-detail">Performance Golf · $3,500 bimonthly → raised to $5,000 bimonthly in Aug 2025</div>
+      </div>
+    </div>
+    <div class="callout warn">
+      <div class="callout-tag">Note</div>
+      <h3>Supplemental: Meredith Haley (CHK 5254) Transfers</h3>
+      <p>~$13,800 total in 2025 (~$1,150/month average) received from CHK 5254. Treat as household contribution — not guaranteed income. Do not factor into debt payoff math.</p>
+    </div>
+  </div>
+
+  <!-- CREDIT CARD DEBT -->
+  <div class="section">
+    <div class="section-title">Credit Card Debt — As of May 14, 2026</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Card</th>
+            <th class="text-right">Balance</th>
+            <th class="text-right">APR</th>
+            <th class="text-right">Min Payment</th>
+            <th class="text-right">Monthly Interest</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="bold">Comenity AAA Visa</span> ···5729</td>
+            <td class="text-right num red-text">$17,190.39</td>
+            <td class="text-right num">25.49%</td>
+            <td class="text-right num">$544</td>
+            <td class="text-right num">~$375</td>
+          </tr>
+          <tr>
+            <td><span class="bold">Capital One Cash</span> ···5692</td>
+            <td class="text-right num">$9,784.32</td>
+            <td class="text-right num">21.40%</td>
+            <td class="text-right num">$275</td>
+            <td class="text-right num">~$174</td>
+          </tr>
+          <tr>
+            <td><span class="bold">Barclays JetBlue</span> ···1578</td>
+            <td class="text-right num">$10,489.46</td>
+            <td class="text-right num">18.74%</td>
+            <td class="text-right num">$267</td>
+            <td class="text-right num">~$164</td>
+          </tr>
+          <tr class="tbl-total">
+            <td>TOTAL</td>
+            <td class="text-right num">$37,464.17</td>
+            <td class="text-right num">~22% blended</td>
+            <td class="text-right num">$1,086</td>
+            <td class="text-right num">~$713</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout action">
+      <div class="callout-tag">Action — Do Today</div>
+      <div class="callout-amount">$903.25 instant reduction</div>
+      <h3>Redeem Unredeemed Cash Back as Statement Credits</h3>
+      <p>
+        Comenity ···5729: <strong>$792.90</strong> cash back — apply as statement credit immediately.<br>
+        Capital One ···5692: <strong>$110.35</strong> cash back — apply as statement credit immediately.<br>
+        Balance drops from $37,464 to <strong>~$36,561</strong> with zero effort.
+      </p>
+    </div>
+  </div>
+
+  <!-- SOFI CONSOLIDATION -->
+  <div class="section">
+    <div class="section-title">SoFi Consolidation Loan — Recommended Path</div>
+    <div class="callout action">
+      <div class="callout-tag">Action</div>
+      <div class="callout-amount">~$265/month saved in interest immediately</div>
+      <h3>Consolidate All 3 Cards into SoFi Personal Loan at ~13.99% Fixed</h3>
+      <p>
+        Current blended APR: ~22% &nbsp;→&nbsp; SoFi: ~13.99% fixed.<br>
+        Consolidate ~$36,561 (after rewards applied) into one fixed monthly payment.<br>
+        <strong>DO NOT close the cards after payoff — freeze them.</strong><br>
+        Move all recurring charges OFF credit cards TO checking account immediately.
+      </p>
+    </div>
+    <div style="margin-top: 8px;">
+      <div class="callout warn">
+        <div class="callout-tag">Before Accepting</div>
+        <h3>Confirm with SoFi: APR, Term, Origination Fee, Prepayment Penalty</h3>
+        <p>Only accept if APR is genuinely under 14%. Prepayment penalty would undercut the whole strategy — confirm it does not exist.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYOFF PROJECTIONS -->
+  <div class="section">
+    <div class="section-title">Payoff Projections — SoFi ~13.99% on $36,561</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Monthly Payment</th>
+            <th class="text-right">Payoff Timeline</th>
+            <th class="text-right">Total Interest</th>
+            <th class="text-right">Savings vs. Minimums</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="muted">$1,086 (minimums only)</td>
+            <td class="text-right muted">28–30 years</td>
+            <td class="text-right red-text">~$67,000</td>
+            <td class="text-right muted">—</td>
+          </tr>
+          <tr>
+            <td class="num">$3,500</td>
+            <td class="text-right num">12 months</td>
+            <td class="text-right num">~$2,700</td>
+            <td class="text-right green-text">~$64,300</td>
+          </tr>
+          <tr>
+            <td class="num">$4,500</td>
+            <td class="text-right num">~9 months</td>
+            <td class="text-right num">~$2,200</td>
+            <td class="text-right green-text">~$64,800</td>
+          </tr>
+          <tr class="tbl-highlight">
+            <td class="num bold">$5,500 ← TARGET</td>
+            <td class="text-right num">~7.5 months</td>
+            <td class="text-right num">~$1,800</td>
+            <td class="text-right green-text">~$65,200</td>
+          </tr>
+          <tr>
+            <td class="num">$5,949 (full payoff budget)</td>
+            <td class="text-right num">~7 months</td>
+            <td class="text-right num">~$1,650</td>
+            <td class="text-right green-text">~$65,350</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 10px;">
+      <strong style="color: var(--orange);">Target:</strong> Pay $5,000–5,500/month on SoFi loan &rarr; debt free by January 2027.
+    </p>
+  </div>
+
+  <!-- BUDGET COMPARISON -->
+  <div class="section">
+    <div class="section-title">Complete Monthly Budget — Current vs. Payoff</div>
+
+    <div style="margin-bottom: 20px;">
+      <div class="section-title" style="font-size: 10px; color: var(--text-muted); border: none; margin-bottom: 10px; padding: 0;">Fixed Non-Negotiables</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Item</th><th class="text-right">Monthly</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bright Horizons child care</td>
+              <td class="text-right num red-text bold">$2,980</td>
+              <td class="muted" style="font-size: 12px;">27% of income — unavoidable</td>
+            </tr>
+            <tr>
+              <td>BrightHouse life insurance</td>
+              <td class="text-right num">$81.13</td>
+              <td class="muted" style="font-size: 12px;">Auto-debits from checking</td>
+            </tr>
+            <tr>
+              <td>GEICO auto insurance</td>
+              <td class="text-right num">$263.68</td>
+              <td class="muted" style="font-size: 12px;">Move to checking from Barclays CC</td>
+            </tr>
+            <tr>
+              <td>Rentokil pest control</td>
+              <td class="text-right num">$64.70</td>
+              <td class="muted" style="font-size: 12px;">Move to checking from Comenity CC</td>
+            </tr>
+            <tr class="tbl-total">
+              <td>Fixed floor subtotal</td>
+              <td class="text-right num">$3,389</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th class="text-right">Current Monthly</th>
+            <th class="text-right">Payoff Budget</th>
+            <th class="text-right">Cut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bold">Child care</td>
+            <td class="text-right num">$2,980</td>
+            <td class="text-right num">$2,980</td>
+            <td class="text-right muted">$0</td>
+          </tr>
+          <tr>
+            <td class="bold">Fixed non-negotiables</td>
+            <td class="text-right num">$409</td>
+            <td class="text-right num">$409</td>
+            <td class="text-right muted">$0</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="bold">Essential living</span><br>
+              <span class="muted" style="font-size: 12px;">Groceries, gas, dry cleaning, phone, gym, pet, pharmacy</span>
+            </td>
+            <td class="text-right num">$1,527</td>
+            <td class="text-right num green-text">$985</td>
+            <td class="text-right green-text">-$542</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="bold">Subscriptions</span><br>
+              <span class="muted" style="font-size: 12px;">After cancellations</span>
+            </td>
+            <td class="text-right num">$283</td>
+            <td class="text-right num green-text">$101</td>
+            <td class="text-right green-text">-$181</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="bold">Discretionary</span><br>
+              <span class="muted" style="font-size: 12px;">Dining, clothing, golf, travel, home, delivery, etc.</span>
+            </td>
+            <td class="text-right num">$2,211</td>
+            <td class="text-right num green-text">$430</td>
+            <td class="text-right green-text">-$1,781</td>
+          </tr>
+          <tr class="tbl-total">
+            <td>Total non-debt spending</td>
+            <td class="text-right num">~$7,410</td>
+            <td class="text-right num">~$4,905</td>
+            <td class="text-right green-text">-$2,505</td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted);">Monthly income</td>
+            <td class="text-right num" style="color: var(--text-muted);">$10,854</td>
+            <td class="text-right num" style="color: var(--text-muted);">$10,854</td>
+            <td></td>
+          </tr>
+          <tr class="tbl-highlight">
+            <td class="bold">Available for debt attack</td>
+            <td class="text-right num bold">~$3,444</td>
+            <td class="text-right num bold">~$5,949</td>
+            <td class="text-right green-text bold">+$2,505</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SUBSCRIPTIONS DETAIL -->
+  <div class="section">
+    <div class="section-title">Subscriptions — Rationalize Now</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Subscription</th><th class="text-right">Monthly</th><th>Action</th><th class="text-right">Savings</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Amazon Prime</td>
+            <td class="text-right num">$14.99</td>
+            <td class="green-text bold" style="font-size: 12px;">KEEP</td>
+            <td class="text-right muted">$0</td>
+          </tr>
+          <tr>
+            <td>LinkedIn Premium</td>
+            <td class="text-right num">$42.53</td>
+            <td class="green-text bold" style="font-size: 12px;">KEEP (work tool)</td>
+            <td class="text-right muted">$0</td>
+          </tr>
+          <tr>
+            <td>Claude.ai</td>
+            <td class="text-right num">$21.25</td>
+            <td class="green-text bold" style="font-size: 12px;">KEEP (work tool)</td>
+            <td class="text-right muted">$0</td>
+          </tr>
+          <tr>
+            <td>Netflix</td>
+            <td class="text-right num">$17.99</td>
+            <td class="green-text bold" style="font-size: 12px;">KEEP (1 streaming)</td>
+            <td class="text-right muted">$0</td>
+          </tr>
+          <tr>
+            <td>Apple.com/bill</td>
+            <td class="text-right num">~$5</td>
+            <td class="green-text bold" style="font-size: 12px;">KEEP (minimal)</td>
+            <td class="text-right muted">$0</td>
+          </tr>
+          <tr>
+            <td><span class="strike">ChatGPT / OpenAI</span></td>
+            <td class="text-right num strike">$21.25</td>
+            <td class="red-text bold" style="font-size: 12px;">CANCEL — have Claude.ai</td>
+            <td class="text-right green-text">$21.25</td>
+          </tr>
+          <tr>
+            <td><span class="strike">SiriusXM</span></td>
+            <td class="text-right num strike">$31.99</td>
+            <td class="red-text bold" style="font-size: 12px;">CANCEL</td>
+            <td class="text-right green-text">$31.99</td>
+          </tr>
+          <tr>
+            <td><span class="strike">Max / HBO (via PayPal)</span></td>
+            <td class="text-right num strike">$10.99</td>
+            <td class="red-text bold" style="font-size: 12px;">CANCEL</td>
+            <td class="text-right green-text">$10.99</td>
+          </tr>
+          <tr>
+            <td><span class="strike">PY *OhDeer South</span></td>
+            <td class="text-right num strike">$117.00</td>
+            <td class="accent bold" style="font-size: 12px;">PAUSE 12 months</td>
+            <td class="text-right green-text">$117.00</td>
+          </tr>
+          <tr class="tbl-total">
+            <td>Subscriptions total</td>
+            <td class="text-right num">$283</td>
+            <td class="accent">→ $101/mo</td>
+            <td class="text-right green-text">-$181</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DISCRETIONARY DETAIL -->
+  <div class="section">
+    <div class="section-title">Discretionary — Hard Caps During Payoff</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th class="text-right">2025 Monthly Avg</th>
+            <th class="text-right">Payoff Budget</th>
+            <th class="text-right">Savings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dining out / restaurants / coffee</td>
+            <td class="text-right num">~$267</td>
+            <td class="text-right num">$150</td>
+            <td class="text-right green-text">-$117</td>
+          </tr>
+          <tr>
+            <td>Clothing / apparel</td>
+            <td class="text-right num">~$317</td>
+            <td class="text-right red-text bold">$0</td>
+            <td class="text-right green-text">-$317</td>
+          </tr>
+          <tr>
+            <td>Golf (courses, PGA stores, memberships)</td>
+            <td class="text-right num">~$258</td>
+            <td class="text-right red-text bold">$0</td>
+            <td class="text-right green-text">-$258</td>
+          </tr>
+          <tr>
+            <td>Travel</td>
+            <td class="text-right num">~$433</td>
+            <td class="text-right red-text bold">$0</td>
+            <td class="text-right green-text">-$433</td>
+          </tr>
+          <tr>
+            <td>Home improvement (true emergencies only)</td>
+            <td class="text-right num">~$375</td>
+            <td class="text-right num">$75</td>
+            <td class="text-right green-text">-$300</td>
+          </tr>
+          <tr>
+            <td>DoorDash / food delivery</td>
+            <td class="text-right num">~$80</td>
+            <td class="text-right red-text bold">$0</td>
+            <td class="text-right green-text">-$80</td>
+          </tr>
+          <tr>
+            <td>Checks written (audit recurring $175)</td>
+            <td class="text-right num">~$341</td>
+            <td class="text-right num">$175</td>
+            <td class="text-right green-text">-$166</td>
+          </tr>
+          <tr>
+            <td>Amazon shopping (non-Prime)</td>
+            <td class="text-right num">~$100</td>
+            <td class="text-right num">$30</td>
+            <td class="text-right green-text">-$70</td>
+          </tr>
+          <tr>
+            <td>Entertainment (Haunted House, Jurassic Quest, etc.)</td>
+            <td class="text-right num">~$40</td>
+            <td class="text-right red-text bold">$0</td>
+            <td class="text-right green-text">-$40</td>
+          </tr>
+          <tr class="tbl-total">
+            <td>Discretionary subtotal</td>
+            <td class="text-right num">~$2,211</td>
+            <td class="text-right num">$430</td>
+            <td class="text-right green-text">-$1,781</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- RECURRING CHARGES TO MOVE -->
+  <div class="section">
+    <div class="section-title">Recurring Charges to Move Off Credit Cards → Checking</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Charge</th><th>Current Card</th><th class="text-right">APR</th><th class="text-right">Annual Interest Cost</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>GEICO $263.68/mo</td>
+            <td>Barclays ···1578</td>
+            <td class="text-right">18.74%</td>
+            <td class="text-right num">~$49/yr</td>
+            <td class="accent bold" style="font-size: 12px;">MOVE TO CHECKING</td>
+          </tr>
+          <tr>
+            <td>Rentokil $64.70/mo</td>
+            <td>Comenity ···5729</td>
+            <td class="text-right">25.49%</td>
+            <td class="text-right num">~$16.50/yr</td>
+            <td class="accent bold" style="font-size: 12px;">MOVE TO CHECKING</td>
+          </tr>
+          <tr>
+            <td><span class="strike">SiriusXM $31.99/mo</span></td>
+            <td>Capital One ···5692</td>
+            <td class="text-right">21.40%</td>
+            <td class="text-right num">—</td>
+            <td class="red-text bold" style="font-size: 12px;">CANCEL</td>
+          </tr>
+          <tr>
+            <td>Claude.ai $21.25/mo</td>
+            <td>Barclays ···1578</td>
+            <td class="text-right">18.74%</td>
+            <td class="text-right num">~$4/yr</td>
+            <td class="muted" style="font-size: 12px;">Keep on card — or move</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">
+      Mandatory bills like GEICO and Rentokil should never be on a revolving balance. Move autopay to BofA checking immediately.
+    </p>
+  </div>
+
+  <!-- BIGGEST SURPRISES -->
+  <div class="section">
+    <div class="section-title">The 10 Biggest Surprises From the Statements</div>
+    <div class="surprises-grid">
+
+      <div class="callout danger">
+        <div class="callout-tag">Danger #1</div>
+        <div class="callout-amount">$35,920/yr</div>
+        <h3>Bright Horizons Child Care</h3>
+        <p>$2,980/month every month. For most of 2025, income was $7,000/month — making child care alone 43% of take-home. This is unavoidable, but it explains why the account always ran at zero.</p>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-tag">Danger #2</div>
+        <div class="callout-amount">~$3,800/yr</div>
+        <h3>Clothing / Apparel</h3>
+        <p>Vineyard Vines ($338), Nordstrom ($170), J.Crew ($78–$64), Marshalls (multiple $200–$544 visits), Abercrombie ($246), Southern Tide, Murray's Toggery, Lululemon, Banana Republic. Must go to $0 for 12 months.</p>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-tag">Danger #3</div>
+        <div class="callout-amount">~$3,100/yr</div>
+        <h3>Golf</h3>
+        <p>Mass Golf membership ($350), PGA of America ($648 on Barclays), Shinnecock Hills greens fee ($1,005 for Ryder Cup), Golf de Mayakoba Mexico ($328), PGA Tour Superstores. A passion — but it cannot coexist with $37k in CC debt.</p>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-tag">Danger #4</div>
+        <div class="callout-amount">~$5,200/yr</div>
+        <h3>Travel</h3>
+        <p>London/Paris 10-day trip (~$2,500+), Nantucket (June), Ryder Cup at Shinnecock/Bethpage (Sep), Bretton Woods NH ski weekend (Dec), car livery service ($399). All charged to debit — pure cash spent while carrying 25% CC debt.</p>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-tag">Danger #5</div>
+        <div class="callout-amount">~$4,200/yr</div>
+        <h3>Gas / $350/month</h3>
+        <p>Multiple gas stations in Hingham daily (Super Petro, Gulf Oil, Exxon Apache, Gulf A.J.'s), plus one anomalous $901.50 charge to Super Petro on 04/22 — likely boat fuel. Either multiple vehicles or a boat is involved.</p>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-tag">Danger #6</div>
+        <div class="callout-amount">~$4,500/yr</div>
+        <h3>Home Improvement</h3>
+        <p>Lowe's alone: $3,000+. Multiple Home Depot and Hingham Lumber visits. Averaged $375/month — too high for a debt-payoff year. Cap at $75/month for true emergencies only.</p>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-tag">Danger #7</div>
+        <div class="callout-amount">~$7,650+ out</div>
+        <h3>Venmo to Meredith Haley</h3>
+        <p>Regular Venmo/Zelle payments out, plus Zelle of $1,000 (Oct), checks of $1,000 (Nov). Purpose unclear from statements — needs to be categorized. Offsetting: ~$13,800 received FROM CHK 5254 in 2025.</p>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-tag">Danger #8</div>
+        <div class="callout-amount">$355 / 5 months</div>
+        <h3>DoorDash on Comenity (25.49% APR)</h3>
+        <p>Every DoorDash charge compounds at 25.49% annually. At ~$71/month average, that's ~$18/year in interest just on food delivery. Small individually — signals a behavioral habit that needs to stop cold.</p>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-tag">Danger #9</div>
+        <div class="callout-amount">$42.50/month</div>
+        <h3>Duplicate AI Subscriptions</h3>
+        <p>ChatGPT + Claude.ai both running simultaneously. Cancel ChatGPT immediately — you already have Claude.ai. This is $255/year in pure waste.</p>
+      </div>
+
+      <div class="callout danger">
+        <div class="callout-tag">Danger #10</div>
+        <div class="callout-amount">~$2,100/yr</div>
+        <h3>Recurring $175 Checks</h3>
+        <p>Checks #1060–#1064 all written for exactly $175, one per month. Needs immediate identification — possible child support, contractor retainer, or other fixed obligation. Cannot budget accurately without knowing what this is.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 90-DAY ACTION PLAN -->
+  <div class="section">
+    <div class="section-title">90-Day Action Plan</div>
+
+    <div class="phase">
+      <div class="phase-title">Day 1 — Today</div>
+      <ul class="checklist">
+        <li class="urgent">
+          <div class="chk"></div>
+          <div class="chk-label">Redeem Comenity ···5729 cash back: <strong>$792.90</strong> — apply as statement credit</div>
+          <span class="badge red">Urgent</span>
+        </li>
+        <li class="urgent">
+          <div class="chk"></div>
+          <div class="chk-label">Redeem Capital One ···5692 cash back: <strong>$110.35</strong> — apply as statement credit</div>
+          <span class="badge red">Urgent</span>
+        </li>
+        <li class="urgent">
+          <div class="chk"></div>
+          <div class="chk-label">Cancel ChatGPT / OpenAI subscription — saves $21.25/month</div>
+          <span class="badge red">Cancel</span>
+        </li>
+        <li class="urgent">
+          <div class="chk"></div>
+          <div class="chk-label">Cancel SiriusXM subscription — saves $31.99/month</div>
+          <span class="badge red">Cancel</span>
+        </li>
+        <li class="urgent">
+          <div class="chk"></div>
+          <div class="chk-label">Cancel Max / HBO (via PayPal) — saves $10.99/month</div>
+          <span class="badge red">Cancel</span>
+        </li>
+        <li class="urgent">
+          <div class="chk"></div>
+          <div class="chk-label">Call OhDeer South — pause service for 12 months ($117.00/month)</div>
+          <span class="badge orange">Pause</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-title">Day 2–3</div>
+      <ul class="checklist">
+        <li>
+          <div class="chk"></div>
+          <div class="chk-label">Call SoFi — confirm APR, term, origination fee, prepayment penalty</div>
+          <span class="badge orange">Call</span>
+        </li>
+        <li class="positive">
+          <div class="chk"></div>
+          <div class="chk-label">If terms acceptable: accept SoFi loan, direct funds to pay off all 3 cards</div>
+          <span class="badge green">Big Step</span>
+        </li>
+        <li>
+          <div class="chk"></div>
+          <div class="chk-label">Move GEICO autopay ($263.68) to BofA checking — off Barclays</div>
+          <span class="badge orange">Move</span>
+        </li>
+        <li>
+          <div class="chk"></div>
+          <div class="chk-label">Move Rentokil autopay ($64.70) to BofA checking — off Comenity</div>
+          <span class="badge orange">Move</span>
+        </li>
+        <li>
+          <div class="chk"></div>
+          <div class="chk-label">Freeze all 3 credit cards physically — remove from Apple Pay and Amazon</div>
+          <span class="badge red">Freeze</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-title">Week 1</div>
+      <ul class="checklist">
+        <li>
+          <div class="chk"></div>
+          <div class="chk-label">Identify what the recurring $175/month checks (#1060–#1064) are paid to — categorize it</div>
+          <span class="badge orange">Audit</span>
+        </li>
+        <li>
+          <div class="chk"></div>
+          <div class="chk-label">Clarify Venmo/Zelle flow with Meredith Haley — what is shared expense vs. other?</div>
+          <span class="badge orange">Clarify</span>
+        </li>
+        <li class="positive">
+          <div class="chk"></div>
+          <div class="chk-label">Set up weekly Sunday 15-minute cash flow review — calendar block it now</div>
+          <span class="badge green">Habit</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-title">Month 1</div>
+      <ul class="checklist">
+        <li>
+          <div class="chk"></div>
+          <div class="chk-label">Zero new credit card charges — every purchase from checking only</div>
+          <span class="badge red">Hard Rule</span>
+        </li>
+        <li class="positive">
+          <div class="chk"></div>
+          <div class="chk-label">Hit $5,000+ payment on SoFi loan</div>
+          <span class="badge green">Target</span>
+        </li>
+        <li>
+          <div class="chk"></div>
+          <div class="chk-label">$0 clothing, golf, travel, DoorDash purchases — no exceptions</div>
+          <span class="badge red">Hard Stop</span>
+        </li>
+        <li>
+          <div class="chk"></div>
+          <div class="chk-label">Grocery budget: $500 hard cap — Stop &amp; Shop only when possible</div>
+          <span class="badge orange">Cap</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-title">Month 3 — First Major Checkpoint</div>
+      <ul class="checklist">
+        <li class="positive">
+          <div class="chk"></div>
+          <div class="chk-label">Balance should be under $22,000 — verify actual vs. projected</div>
+          <span class="badge green">Milestone</span>
+        </li>
+        <li class="positive">
+          <div class="chk"></div>
+          <div class="chk-label">Credit score improvement from reduced utilization beginning to show</div>
+          <span class="badge green">Win</span>
+        </li>
+        <li>
+          <div class="chk"></div>
+          <div class="chk-label">Evaluate if SiriusXM / streaming can be added back — only if ahead of payoff schedule</div>
+          <span class="badge orange">Review</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-title">Month 7–8 — Debt-Free Target</div>
+      <ul class="checklist">
+        <li class="positive">
+          <div class="chk"></div>
+          <div class="chk-label">January 2027: $0 revolving CC debt — first time in 2+ years</div>
+          <span class="badge green">Goal</span>
+        </li>
+        <li class="positive">
+          <div class="chk"></div>
+          <div class="chk-label">Begin building 3-month emergency fund before resuming lifestyle spending</div>
+          <span class="badge green">Next Step</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- AFTER PAYOFF -->
+  <div class="section">
+    <div class="section-title">After Payoff — January 2027 Onwards</div>
+    <div class="callout action" style="margin-bottom: 20px;">
+      <div class="callout-tag">Freedom</div>
+      <div class="callout-amount">$5,949/month unlocked</div>
+      <h3>The attack budget redirected to wealth-building</h3>
+      <p>The $1,086/month that was going to minimum payments and the $5,000/month attack — all freed up simultaneously.</p>
+    </div>
+    <div class="future-grid">
+      <div class="future-card">
+        <div class="fc-amount">$2,000/mo</div>
+        <div class="fc-label">Emergency Fund Build<br><span style="color: var(--text-dim);">3-month target</span></div>
+      </div>
+      <div class="future-card">
+        <div class="fc-amount">$2,000/mo</div>
+        <div class="fc-label">Investment &amp; Retirement<br><span style="color: var(--text-dim);">Start building net worth</span></div>
+      </div>
+      <div class="future-card">
+        <div class="fc-amount">$1,000/mo</div>
+        <div class="fc-label">Lifestyle Restoration<br><span style="color: var(--text-dim);">Golf, travel, dining — earned</span></div>
+      </div>
+    </div>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 16px;">
+      Keep cards frozen unless booking travel that requires a card. Never carry a balance again.
+    </p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    Aaron Ungvarsky — Personal Debt Recovery &amp; Budget Plan<br>
+    Based on 12 months of bank statements + credit card statements &nbsp;·&nbsp; As of May 14, 2026<br>
+    All figures from actual statements unless noted as estimates (~)
+  </div>
+
+</div>
+</body>
+</html>
