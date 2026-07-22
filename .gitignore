@@ -22,3 +22,18 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Stray browser/external cached assets
+analytics.min.js
+facebook-pixel.dynamic.js.gz
+fbevents.js
+s.js
+saved_resource.html
+isolated-segment.html
+index-CwSbRDbP.js
+commons.*.js.gz
+c6a992d55-*.css
+c9500abe8-*.css
+f12a4347e1080fb88155.js
+lupk8zyo
+468742119653388
