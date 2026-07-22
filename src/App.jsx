@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './index.css';
+import PinnedHub from './pinned/PinnedHub';
 
 import EntryScreen from './screens/EntryScreen';
 import ProfileScreen from './screens/ProfileScreen';
@@ -60,6 +61,7 @@ function TransitionWrapper({ children, screenKey }) {
 }
 
 export default function App() {
+  const [proto, setProto] = useState('fitting'); // 'fitting' | 'pinned'
   const [screenIdx, setScreenIdx] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -99,9 +101,20 @@ export default function App() {
   if (isMobile) {
     return (
       <div style={{ width: '100%', height: '100dvh', backgroundColor: '#0a0a0a', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-        <TransitionWrapper screenKey={current}>
+        {/* Mobile proto switcher */}
+        <div style={{ display: 'flex', gap: 6, padding: '8px 12px', backgroundColor: '#0a0a0a', borderBottom: '1px solid #1a1a1a', flexShrink: 0 }}>
+          {[['fitting','PG Fitting Tool'],['pinned','Pinned Features']].map(([id, label]) => (
+            <button key={id} onClick={() => setProto(id)} style={{
+              flex: 1, padding: '6px 4px', borderRadius: 10, fontSize: 10, fontWeight: 700,
+              border: 'none', cursor: 'pointer',
+              background: proto === id ? 'linear-gradient(135deg,#e8341c,#f07428)' : '#1a1a1a',
+              color: proto === id ? 'white' : '#555',
+            }}>{label}</button>
+          ))}
+        </div>
+        <TransitionWrapper screenKey={proto === 'fitting' ? current : 'pinned'}>
           <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-            {renderScreen()}
+            {proto === 'pinned' ? <PinnedHub /> : renderScreen()}
           </div>
         </TransitionWrapper>
       </div>
@@ -120,8 +133,21 @@ export default function App() {
       padding: '24px',
       gap: '16px',
     }}>
+      {/* Proto switcher */}
+      <div style={{ display: 'flex', gap: 8, marginBottom: 4 }}>
+        {[['fitting','PG AI Fitting Tool'],['pinned','Pinned Golf Features']].map(([id, label]) => (
+          <button key={id} onClick={() => { setProto(id); setScreenIdx(0); }} style={{
+            padding: '7px 16px', borderRadius: 20, fontSize: 11, fontWeight: 700,
+            border: 'none', cursor: 'pointer',
+            background: proto === id ? 'linear-gradient(135deg,#e8341c,#f07428)' : '#1a1a1a',
+            color: proto === id ? 'white' : '#555',
+            transition: 'all 0.2s',
+          }}>{label}</button>
+        ))}
+      </div>
+
       {/* Top nav */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '900px' }}>
+      <div style={{ display: proto === 'fitting' ? 'flex' : 'none', alignItems: 'center', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '900px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginRight: '4px' }}>
           <div style={{ width: '26px', height: '26px', background: 'linear-gradient(135deg,#e8341c,#f07428)', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ color: 'white', fontWeight: '900', fontSize: '9px' }}>PG</span>
@@ -154,8 +180,8 @@ export default function App() {
         {/* Notch */}
         <div style={{ position:'absolute', top:'12px', left:'50%', transform:'translateX(-50%)', width:'120px', height:'34px', backgroundColor:'#000', borderRadius:'20px', zIndex:100 }} />
         <div style={{ height:'100%', overflow:'hidden', borderRadius:'44px' }}>
-          <TransitionWrapper screenKey={current}>
-            {renderScreen()}
+          <TransitionWrapper screenKey={proto === 'fitting' ? current : 'pinned'}>
+            {proto === 'pinned' ? <PinnedHub /> : renderScreen()}
           </TransitionWrapper>
         </div>
       </div>
