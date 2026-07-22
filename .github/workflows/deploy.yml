@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - claude/build-golf-prototype-4pHu0
+      - main
   workflow_dispatch:
 
 permissions:
